@@ -28,6 +28,7 @@ func main() {
 		fmt.Printf("%v", err)
 	}
 
+	// parameters id, fields
 	resp, err := client.PeopleProfile("<ID>", []string{"id", "firstName", "lastName"})
 
 	if err != nil {
@@ -58,4 +59,14 @@ content := map[string]interface{}{
 resp, err := client.PeopleShare(content)
 ...
 
+```
+
+### Manage Company Pages
+
+#### Company Profile
+
+```go
+...
+resp, err := client.CompanyProfile("2414183", []string{"id", "name", "ticker", "description"})
+...
 ```
