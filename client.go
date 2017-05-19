@@ -1,6 +1,7 @@
 package linkedin
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -31,16 +32,20 @@ func (li *Client) Call(verb string, endpoint string, id string, path string, opt
 	if endpoint == "people" && id == "" {
 		id = "~"
 	} else if id == "" {
-		errors.New("Id must be present")
+		e = errors.New("Id must be present")
 	}
 	var fields string
 	if v, ok := options["fields"]; ok {
 		fields = ":(" + strings.Join(v.([]string), ",") + ")"
+		delete(options, "fields")
 	}
 
 	url := fmt.Sprintf(apiURL + "/" + endpoint + "/" + id + fields + path)
 
-	req, err := http.NewRequest(verb, url, nil)
+	body, err := json.Marshal(options)
+	bodyStr := []byte(body)
+
+	req, err := http.NewRequest(verb, url, bytes.NewBuffer(bodyStr))
 	if err != nil {
 		return nil, err
 	}
