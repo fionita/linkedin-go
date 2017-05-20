@@ -86,3 +86,11 @@ params := map[string]string{
 resp, err := client.CompanyUpdates("2414183", params)
 ...
 ```
+
+### Company specific updates
+
+```go
+...
+resp, err := client.CompanyUpdate("<ID>", "<UPDATE-KEY>")
+...
+```
