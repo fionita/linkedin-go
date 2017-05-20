@@ -62,11 +62,27 @@ resp, err := client.PeopleShare(content)
 ```
 
 ### Manage Company Pages
+Required permission: rw_company_admin
 
 #### Company Profile
 
 ```go
 ...
+// parametes id, fields
+// required id
 resp, err := client.CompanyProfile("2414183", []string{"id", "name", "ticker", "description"})
+...
+```
+
+### Company updates
+
+```go
+...
+params := map[string]string{
+	"event-type": "status-update",
+	"count":      "10",
+	"start":      "0",
+}
+resp, err := client.CompanyUpdates("2414183", params)
 ...
 ```
