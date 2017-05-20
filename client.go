@@ -12,14 +12,17 @@ import (
 
 const apiURL = "https://api.linkedin.com/v1"
 
+// Config struct
 type Config struct {
 	AccessToken string
 }
 
+// Client struct
 type Client struct {
 	conf *Config
 }
 
+// Init - initialize the client
 func Init(conf *Config) (*Client, error) {
 	if conf.AccessToken == "" {
 		return nil, fmt.Errorf("%v", "Access token is required")
@@ -28,7 +31,7 @@ func Init(conf *Config) (*Client, error) {
 	return &Client{conf}, nil
 }
 
-func (li *Client) Call(verb string, endpoint string, id string, path string, options map[string]interface{}) (r map[string]interface{}, e error) {
+func (li *Client) call(verb string, endpoint string, id string, path string, options map[string]interface{}) (r map[string]interface{}, e error) {
 	if endpoint == "people" && id == "" {
 		id = "~"
 	} else if id == "" {
@@ -43,6 +46,9 @@ func (li *Client) Call(verb string, endpoint string, id string, path string, opt
 	url := fmt.Sprintf(apiURL + "/" + endpoint + "/" + id + fields + path)
 
 	body, err := json.Marshal(options)
+	if err != nil {
+		return nil, err
+	}
 	bodyStr := []byte(body)
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer(bodyStr))

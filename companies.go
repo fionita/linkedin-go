@@ -6,6 +6,7 @@ import (
 	"net/url"
 )
 
+// CompanyProfile gets company profile
 func (cli *Client) CompanyProfile(id string, fields []string) (r map[string]interface{}, e error) {
 	var opt map[string]interface{}
 
@@ -15,31 +16,38 @@ func (cli *Client) CompanyProfile(id string, fields []string) (r map[string]inte
 		}
 	}
 
-	r, e = cli.Call("GET", "companies", id, "", opt)
+	r, e = cli.call("GET", "companies", id, "", opt)
 
 	return r, e
 }
 
+// CompanyUpdates gets company updates
 func (cli *Client) CompanyUpdates(id string, params map[string]string) (r map[string]interface{}, e error) {
+	optionalParams := [3]string{"event-type", "count", "start"}
 	v := url.Values{}
-	for key, val := range params {
-		v.Add(key, val)
+	for _, key := range optionalParams {
+		val, ok := params[key]
+		if ok == true {
+			v.Add(key, val)
+		}
 	}
 
 	path := fmt.Sprintf("/updates?%v", v.Encode())
-	r, e = cli.Call("GET", "companies", id, path, nil)
+	r, e = cli.call("GET", "companies", id, path, nil)
 
 	return r, e
 }
 
+// CompanyUpdate get a specific company update
 func (cli *Client) CompanyUpdate(id, key string) (r map[string]interface{}, e error) {
 	if key == "" {
 		e = errors.New("Update Key must be present")
+		return
 	}
 
 	path := fmt.Sprintf("/updates/key=%v", key)
 
-	r, e = cli.Call("GET", "companies", id, path, nil)
+	r, e = cli.call("GET", "companies", id, path, nil)
 
 	return r, e
 }

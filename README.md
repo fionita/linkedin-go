@@ -74,7 +74,7 @@ resp, err := client.CompanyProfile("2414183", []string{"id", "name", "ticker", "
 ...
 ```
 
-### Company updates
+### Get a company's updates
 
 ```go
 ...
@@ -87,7 +87,7 @@ resp, err := client.CompanyUpdates("2414183", params)
 ...
 ```
 
-### Company specific updates
+### Get a specific company update
 
 ```go
 ...
