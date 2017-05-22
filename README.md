@@ -58,7 +58,6 @@ content := map[string]interface{}{
 }
 resp, err := client.PeopleShare(content)
 ...
-
 ```
 
 ### Manage Company Pages
@@ -67,38 +66,31 @@ Required permission: rw_company_admin
 #### Company Profile
 
 ```go
-...
 // parametes id, fields
 // required id
 resp, err := client.CompanyProfile("2414183", []string{"id", "name", "ticker", "description"})
-...
 ```
 
 ### Get a company's updates
 
 ```go
-...
 params := map[string]string{
 	"event-type": "status-update",
 	"count":      "10",
 	"start":      "0",
 }
 resp, err := client.CompanyUpdates("2414183", params)
-...
 ```
 
 ### Get a specific company update
 
 ```go
-...
 resp, err := client.CompanyUpdate("<ID>", "<UPDATE-KEY>", "<filter>") // filter: empty or one of ["update-comments", "likes"]
-...
 ```
 
 ### Create a company share
 
 ```go
-...
 content := map[string]interface{}{
 	"comment": "test go company share!",
 	"content": map[string]string{
@@ -112,5 +104,10 @@ content := map[string]interface{}{
 }
 
 resp, err := client.CompanyShare("2414183", content)
-...
+```
+
+### Add a comment on behalf of a company
+
+```go
+resp, err := client.CompanyAddComment("<ID>", "<UPDATE-KEY>", "your comment")
 ```

@@ -64,3 +64,19 @@ func (cli *Client) CompanyShare(id string, data map[string]interface{}) (r map[s
 	r, e = cli.call("POST", "companies", id, "/shares", data)
 	return r, e
 }
+
+// CompanyAddComment adds a comment on behalf of a company
+func (cli *Client) CompanyAddComment(id, key, comment string) (r map[string]interface{}, e error) {
+	if key == "" {
+		e = errors.New("Update Key must be present")
+		return
+	}
+
+	path := fmt.Sprintf("/updates/key=%v/update-comments-as-company", key)
+	data := map[string]interface{}{
+		"comment": comment,
+	}
+
+	r, e = cli.call("POST", "companies", id, path, data)
+	return r, e
+}
