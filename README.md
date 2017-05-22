@@ -41,7 +41,7 @@ func main() {
 
 ```
 
-### Share on linkedin
+#### Share on linkedin
 
 ```go
 ...
@@ -71,7 +71,7 @@ Required permission: rw_company_admin
 resp, err := client.CompanyProfile("2414183", []string{"id", "name", "ticker", "description"})
 ```
 
-### Get a company's updates
+#### Get a company's updates
 
 ```go
 params := map[string]string{
@@ -82,13 +82,13 @@ params := map[string]string{
 resp, err := client.CompanyUpdates("2414183", params)
 ```
 
-### Get a specific company update
+#### Get a specific company update
 
 ```go
 resp, err := client.CompanyUpdate("<ID>", "<UPDATE-KEY>", "<filter>") // filter: empty or one of ["update-comments", "likes"]
 ```
 
-### Create a company share
+#### Create a company share
 
 ```go
 content := map[string]interface{}{
@@ -106,7 +106,7 @@ content := map[string]interface{}{
 resp, err := client.CompanyShare("2414183", content)
 ```
 
-### Add a comment on behalf of a company
+#### Add a comment on behalf of a company
 
 ```go
 resp, err := client.CompanyAddComment("<ID>", "<UPDATE-KEY>", "your comment")
