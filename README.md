@@ -91,6 +91,26 @@ resp, err := client.CompanyUpdates("2414183", params)
 
 ```go
 ...
-resp, err := client.CompanyUpdate("<ID>", "<UPDATE-KEY>")
+resp, err := client.CompanyUpdate("<ID>", "<UPDATE-KEY>", "<filter>") // filter: empty or one of ["update-comments", "likes"]
+...
+```
+
+### Create a company share
+
+```go
+...
+content := map[string]interface{}{
+	"comment": "test go company share!",
+	"content": map[string]string{
+		"title":         "LinkedIn Developers Resources",
+		"description":   "Leverage LinkedIn's APIs to maximize engagement",
+		"submitted-url": "https://developer.linkedin.com",
+	},
+	"visibility": map[string]string{
+		"code": "anyone",
+	},
+}
+
+resp, err := client.CompanyShare("2414183", content)
 ...
 ```

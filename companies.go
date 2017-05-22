@@ -58,3 +58,9 @@ func (cli *Client) CompanyUpdate(id, key, filter string) (r map[string]interface
 
 	return r, e
 }
+
+// CompanyShare creates a company share
+func (cli *Client) CompanyShare(id string, data map[string]interface{}) (r map[string]interface{}, e error) {
+	r, e = cli.call("POST", "companies", id, "/shares", data)
+	return r, e
+}
