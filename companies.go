@@ -39,13 +39,20 @@ func (cli *Client) CompanyUpdates(id string, params map[string]string) (r map[st
 }
 
 // CompanyUpdate get a specific company update
-func (cli *Client) CompanyUpdate(id, key string) (r map[string]interface{}, e error) {
+func (cli *Client) CompanyUpdate(id, key, filter string) (r map[string]interface{}, e error) {
 	if key == "" {
 		e = errors.New("Update Key must be present")
 		return
 	}
 
 	path := fmt.Sprintf("/updates/key=%v", key)
+	filters := [2]string{"update-comments", "likes"}
+
+	for _, f := range filters {
+		if f == filter {
+			path = fmt.Sprintf("%v/%v", path, f)
+		}
+	}
 
 	r, e = cli.call("GET", "companies", id, path, nil)
 
